@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  favoriteTeam :string = "";
   title = 'FootballWebsite';
+  addFavoriteTeam(name : HTMLInputElement){
+    this.favoriteTeam = name.value;
+  }
 }

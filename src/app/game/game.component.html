@@ -1,0 +1,27 @@
+
+    <label for="test">team</label>
+    <input type="text" [(ngModel)] = "teamName">
+    <button class= "btn btn-primary" (click)="updateGames()">submit</button>
+    <br>
+    <div *ngIf="checkFavoriteGameEmpty(); else elseBlock" >
+        <div >
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Venue</th>
+                    <th scope="col">Host</th>
+                    <th scope="col">Away</th>
+                    <th scope="col">Winner</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor = "let game of favoriteGames">
+                  <tr>
+                    <th scope="row">{{game.venue}}</th>
+                    <td>{{game.hteam}}</td>
+                    <td>{{game.ateam}}</td>
+                    <td>{{game.winner}}</td>
+                  </tr>
+              </table>
+        </div>
+    </div>
+    <ng-template #elseBlock>No game was chosen</ng-template>

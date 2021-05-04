@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <h1>LADDERS</h1>
+    <table class="table table-dark">
+        <thead>
+            <th scope = "col">Rank</th>
+            <th scope = "col">Team</th>
+            <th scope = "col">Matches</th>
+            <th scope = "col">Win</th>
+        </thead>
+        <tbody *ngFor = "let team of teams">
+            <th scope="row">{{team.rank}}</th>
+            <td>{{team.name}}</td>
+            <td>{{team.round}}</td>
+            <td>{{team.wins}}</td>
+        </tbody>
+    </table>
+</div>

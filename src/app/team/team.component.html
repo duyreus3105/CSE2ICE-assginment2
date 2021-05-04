@@ -1,0 +1,23 @@
+<div class="container" [hidden] = "!unselected">
+    <div class="row">
+      <div class="col-sm-4 text-center" 
+      style="border: solid;" 
+      *ngFor="let team of teams" 
+      id = "{{team.id}}" 
+      (click)="getTeamID(team.id)">
+        <img src="https://squiggle.com.au{{team.logo}}" id = "{{team.id}}">
+        <br>
+        <h1 id = "{{team.id}}">{{team.name}}</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid text-center" [hidden] = "unselected">
+     <!-- <img src="https://squiggle.com.au/{{chosenTeam.logo}}">
+        <br>
+    <h1>{{chosenTeam.name}}</h1>
+    <h2>{{chosenTeam.abbrev}}</h2> -->
+
+    <button class = "btn btn-primary" (click)="return()">Return</button>
+  </div>
