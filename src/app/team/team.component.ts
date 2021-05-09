@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Event } from '@angular/router';
 import {Team} from '../team';
 import { DataService } from '../teamData.service';
+import {Game} from '../game';
 
 @Component({
   selector: 'app-team',
@@ -12,28 +10,54 @@ import { DataService } from '../teamData.service';
 })
 export class TeamComponent implements OnInit {
   teams!:Team[];
+  unselected !:boolean;
+  games!:Game[];
+  @Input() chosenTeam!:Team;
 
   constructor(private dataService:DataService) {}
 
   getTeam():void{
     this.dataService.getTeams().subscribe(temp => {this.teams = temp;});
   }
+  getGame():void{
+    this.dataService.getGame().subscribe(temp => {this.games = temp;})
+  }
 
   ngOnInit(): void {
     this.getTeam();
+    this.unselected = true; 
+    this.getGame();
   }
   
-  unselected :boolean = true;
-
-  chosenTeam!:Team;
   getTeamID(id:number)
   {
-    this.chosenTeam = this.teams.find(t => t.id == id);
+    this.chosenTeam = (this.teams.filter(t => t.id == id))[0];
     this.unselected = false;
   }
 
   return(){
     this.unselected = true;
+  }
+  getNextFourGame(){
+    //
+  }
+
+  allVenue!:Game[];
+  getVenues(id:number){
+    this.allVenue = this.games.filter(game => game.winnerteamid == id);
+    
+  }
+  
+  favoriteTeamResult!:Game[]
+  getTeamResults(){
+    let temp : Game[] = [];
+    this.games.forEach(game => {
+      if((game.ateam == this.chosenTeam.name || game.hteam == this.chosenTeam.name) && game.complete == 100)
+      {
+        temp.push(game);
+      }
+    })
+    this.favoriteTeamResult = temp;
   }
   
 }

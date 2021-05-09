@@ -4,7 +4,8 @@ import {map} from "rxjs/operators";
 import {Team} from "./team";
 import {Game} from "./game";
 import { HttpClient } from '@angular/common/http';
-
+import {Tip} from "./tip"
+import { data } from "jquery";
 @Injectable({
     providedIn:'root'
 })
@@ -24,7 +25,7 @@ export class DataService{
     }
 
     getGame():Observable<Game[]>{
-        return this.http.get('https://api.squiggle.com.au/?q=games')
+        return this.http.get('https://api.squiggle.com.au/?q=games;year=2021')
             .pipe(map((data:any)=>data.games.map((item:any)=>
                 new Game(
                     item.hteam,
@@ -52,5 +53,33 @@ export class DataService{
                     item.hscore,
                     item.round
                 ))))
+    }
+
+    getTip():Observable<Tip[]>{
+        return this.http.get("https://api.squiggle.com.au/?q=tips;year=2021")
+            .pipe(map((data: any) => data.tips.map((item:any)=>
+            new Tip(
+                item.tip,
+                item.condience,
+                item.sourceid,
+                item.hteamid,
+                item.ateam,
+                item.correct,
+                item.tipteamid,
+                item.ateamid,
+                item.err,
+                item.gameid,
+                item.hconfidence,
+                item.year,
+                item.venue,
+                item.round,
+                item.margin,
+                item.date,
+                item.updated,
+                item.hmargim,
+                item.bits,
+                item.source,
+                item.hteam
+            ))))
     }
 }

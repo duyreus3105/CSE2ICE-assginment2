@@ -3,6 +3,8 @@ import {DataService} from '../teamData.service'
 import {Game} from '../game'
 import {FormControl} from '@angular/forms'
 import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expression_converter';
+import { Team } from '../team';
+import {TeamComponent} from '../team/team.component'
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -11,6 +13,7 @@ import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expr
 export class GameComponent implements OnInit {
   teamName!:string;
   games !: Game[];
+  favoriteTeam !: Team;
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -34,4 +37,14 @@ export class GameComponent implements OnInit {
     this.favoriteGames = temp;
   }
 
+  favoriteTeamGames!:Game[]
+  getFavoriteTeamGames(){
+    var temp : Game[] = [];
+    this.games.forEach(game => {
+      if(game.ateam == this.favoriteTeam.name || game.hteam == this.favoriteTeam.name){
+        temp.push(game);
+      }
+    });
+    this.favoriteTeamGames = temp;
+  }
 }

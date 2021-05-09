@@ -4,20 +4,54 @@
       style="border: solid;" 
       *ngFor="let team of teams" 
       id = "{{team.id}}" 
-      (click)="getTeamID(team.id)">
+      (click)="getTeamID(team.id); getVenues(team.id); getTeamResults();">
         <img src="https://squiggle.com.au{{team.logo}}" id = "{{team.id}}">
         <br>
         <h1 id = "{{team.id}}">{{team.name}}</h1>
       </div>
     </div>
-  </div>
+</div>
 
 
-  <div class="container-fluid text-center" [hidden] = "unselected">
-     <!-- <img src="https://squiggle.com.au/{{chosenTeam.logo}}">
+  <div class="container-fluid text-center" [hidden] = "unselected" *ngIf = "!unselected" >
+     <img src="https://squiggle.com.au/{{chosenTeam.logo}}">
         <br>
     <h1>{{chosenTeam.name}}</h1>
-    <h2>{{chosenTeam.abbrev}}</h2> -->
+    <h2>{{chosenTeam.abbrev}}</h2>
+
+    <br>
+
+    <h2>All the Venue of your Favorite Team Won Game</h2>
+    <div class="container-fluid">
+      <ul *ngFor = "let venue of allVenue">
+        <li>{{venue.venue}}</li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <h2>Result of {{chosenTeam.name}}</h2>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Venue</th>
+            <th scope="col">Round</th>
+            <th scope="col">Host</th>
+            <th scope ="col">Result</th>
+            <th scope="col">Away</th>
+            <th scope="col">Winner</th>
+          </tr>
+        </thead>
+        <tbody  *ngFor = "let t of favoriteTeamResult">
+          <tr>
+            <th scope="row">{{t.venue}}</th>
+            <td>{{t.round}}</td>
+            <td>{{t.hteam}}</td>
+            <td>{{t.hscore}}-{{t.ascore}}</td>
+            <td>{{t.ateam}}</td>
+            <td>{{t.winner}}</td>
+          </tr>
+      </table>
+
+  </div>
 
     <button class = "btn btn-primary" (click)="return()">Return</button>
   </div>

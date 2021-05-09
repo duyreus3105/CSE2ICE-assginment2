@@ -9,7 +9,7 @@ import * as $ from "jquery";
 export class ResultComponent implements OnInit {
   teams : teamLadder[] = [];
   fill(teamToAdd: teamLadder[]){
-    $.getJSON("https://api.squiggle.com.au/?q=ladder;year=2021;round=6;source=1",function(data){
+    $.getJSON("https://api.squiggle.com.au/?q=ladder;year=2021;round=8;source=1",function(data){
       $.each(data.ladder,function(i,t){
         var element = new teamLadder(t.rank, t.team, t.round, t.wins);
         teamToAdd.push(element);
