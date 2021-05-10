@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GameComponent } from './game/game.component';
 import { CompareComponent } from './compare/compare.component';
+import { NumberConverterPipe } from './number-converter.pipe';
 
 
 
@@ -21,7 +22,8 @@ import { CompareComponent } from './compare/compare.component';
     ResultComponent,
     TeamComponent,
     GameComponent,
-    CompareComponent
+    CompareComponent,
+    NumberConverterPipe
   ],
   imports: [
     BrowserModule,

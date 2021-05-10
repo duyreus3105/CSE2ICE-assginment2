@@ -85,6 +85,7 @@
             <th scope="col">Round</th>
             <th scope="col">Host</th>
             <th scope="col">Away</th>
+            <th scope="col">Prediction</th>
           </tr>
         </thead>
         <tbody>
@@ -93,6 +94,9 @@
             <td>{{gamePrediction.round}}</td>
             <td>{{gamePrediction.hteam}}</td>
             <td>{{gamePrediction.ateam}}</td>
+            <td><p  *ngIf = "gamePrediction.hteam == chosenTeam.name; else elseBlock">{{gamePrediction.hconfidence}}</p>
+                <ng-template #elseBlock>{{100 - (gamePrediction.hconfidence|numberConverter) }}</ng-template>
+            </td>
           </tr>
       </table>
     </div>
