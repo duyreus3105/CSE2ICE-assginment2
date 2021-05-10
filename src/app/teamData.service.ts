@@ -60,26 +60,26 @@ export class DataService{
             .pipe(map((data: any) => data.tips.map((item:any)=>
             new Tip(
                 item.tip,
-                item.condience,
                 item.sourceid,
-                item.hteamid,
                 item.ateam,
-                item.correct,
-                item.tipteamid,
-                item.ateamid,
-                item.err,
-                item.gameid,
                 item.hconfidence,
+                item.correct,
                 item.year,
-                item.venue,
-                item.round,
+                item.gameid,
+                item.hteam,
+                item.tipteamid,
                 item.margin,
-                item.date,
+                item.ateamid,
+                item.hmargin,
+                item.confidence,
                 item.updated,
-                item.hmargim,
+                item.round,
+                item.err,
+                item.hteamid,
                 item.bits,
+                item.venue,
                 item.source,
-                item.hteam
+                item.date
             ))))
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import {Team} from '../team';
 import { DataService } from '../teamData.service';
 import {Game} from '../game';
+import {Tip} from '../tip';
 
 @Component({
   selector: 'app-team',
@@ -12,6 +13,8 @@ export class TeamComponent implements OnInit {
   teams!:Team[];
   unselected !:boolean;
   games!:Game[];
+  tips!:Tip[];
+  unPredicted!:boolean;
   @Input() chosenTeam!:Team;
 
   constructor(private dataService:DataService) {}
@@ -22,11 +25,16 @@ export class TeamComponent implements OnInit {
   getGame():void{
     this.dataService.getGame().subscribe(temp => {this.games = temp;})
   }
+  getTip():void{
+    this.dataService.getTip().subscribe(temp=>{this.tips = temp;})
+  }
 
   ngOnInit(): void {
     this.getTeam();
     this.unselected = true; 
     this.getGame();
+    this.getTip();
+    this.unPredicted=true;
   }
   
   getTeamID(id:number)
@@ -37,15 +45,12 @@ export class TeamComponent implements OnInit {
 
   return(){
     this.unselected = true;
-  }
-  getNextFourGame(){
-    //
+    this.unPredicted = true;
   }
 
   allVenue!:Game[];
   getVenues(id:number){
     this.allVenue = this.games.filter(game => game.winnerteamid == id);
-    
   }
   
   favoriteTeamResult!:Game[]
@@ -60,4 +65,32 @@ export class TeamComponent implements OnInit {
     this.favoriteTeamResult = temp;
   }
   
+  
+  favoriteTeamNextGames!:Game[];
+  getNextFourGame(){
+    let temp : Game[] = [];
+    this.games.forEach(game => {
+      if((game.ateam == this.chosenTeam.name || game.hteam == this.chosenTeam.name) && (game.round == 9 || game.round == 10 || game.round == 11 || game.round == 12))
+      {
+        temp.push(game);
+      }
+    })
+
+    temp.sort(function(a,b){
+      if(a.round < b.round){return -1;}
+      else if(a.round > b.round){return 1;}
+      return 0;
+    })
+    this.favoriteTeamNextGames = temp;
+  }
+
+
+  
+  gamePrediction!:Tip;
+  getPrediction(id:number){
+    this.gamePrediction = this.tips.filter(t => t.gameid == id)[0];
+    this.unPredicted = false;
+  }
 }
+
+

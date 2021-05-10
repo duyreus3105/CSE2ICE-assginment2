@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {teamLadder} from "C:/Users/a/Desktop/FootballWebsite/src/app/teamLadder";
-import * as $ from "jquery";
+// import * as $ from "jquery";
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',

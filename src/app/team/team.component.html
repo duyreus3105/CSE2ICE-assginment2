@@ -4,14 +4,13 @@
       style="border: solid;" 
       *ngFor="let team of teams" 
       id = "{{team.id}}" 
-      (click)="getTeamID(team.id); getVenues(team.id); getTeamResults();">
+      (click)="getTeamID(team.id); getVenues(team.id); getTeamResults(); getNextFourGame();">
         <img src="https://squiggle.com.au{{team.logo}}" id = "{{team.id}}">
         <br>
         <h1 id = "{{team.id}}">{{team.name}}</h1>
       </div>
     </div>
 </div>
-
 
   <div class="container-fluid text-center" [hidden] = "unselected" *ngIf = "!unselected" >
      <img src="https://squiggle.com.au/{{chosenTeam.logo}}">
@@ -20,13 +19,16 @@
     <h2>{{chosenTeam.abbrev}}</h2>
 
     <br>
-
-    <h2>All the Venue of your Favorite Team Won Game</h2>
+    
     <div class="container-fluid">
+      <h2>All the Venue of your Favorite Team Won Game</h2>
       <ul *ngFor = "let venue of allVenue">
         <li>{{venue.venue}}</li>
       </ul>
     </div>
+
+    <br>
+
     <div class="container-fluid">
       <h2>Result of {{chosenTeam.name}}</h2>
       <table class="table table-dark">
@@ -50,8 +52,50 @@
             <td>{{t.winner}}</td>
           </tr>
       </table>
+    </div>
+    
+    <br>
 
-  </div>
+    <div class="container-fluid">
+      <h2>The Next Four Games</h2>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Venue</th>
+            <th scope="col">Round</th>
+            <th scope="col">Host</th>
+            <th scope="col">Away</th>
+          </tr>
+        </thead>
+        <tbody  *ngFor = "let t of favoriteTeamNextGames" (click) = "getPrediction(t.id)">
+          <tr>
+            <th scope="row">{{t.venue}}</th>
+            <td>{{t.round}}</td>
+            <td>{{t.hteam}}</td>
+            <td>{{t.ateam}}</td>
+          </tr>
+      </table>
+    </div>
+
+    <div class="container-fluid" *ngIf="!unPredicted">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Venue</th>
+            <th scope="col">Round</th>
+            <th scope="col">Host</th>
+            <th scope="col">Away</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{gamePrediction.venue}}</th>
+            <td>{{gamePrediction.round}}</td>
+            <td>{{gamePrediction.hteam}}</td>
+            <td>{{gamePrediction.ateam}}</td>
+          </tr>
+      </table>
+    </div>
 
     <button class = "btn btn-primary" (click)="return()">Return</button>
   </div>
