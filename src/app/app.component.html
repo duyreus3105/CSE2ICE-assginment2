@@ -1,17 +1,17 @@
-<div class="container-fluid">
-    <app-header></app-header>
-</div> 
-<br>
-<app-compare></app-compare>   
-<!-- <div class = "container-fluid">
-    <app-team></app-team>
-</div>
+<body>
+    <div class="container-fluid">
+        <app-header (selectedTeam) = "receiveMessage($event)"></app-header>
+    </div> 
+    <div class= "container-fluid text-center  background">
+        <div class = "caption">
+            <span class = "border">WELCOME TO YOUR FAVORITE FOOTBALL WORLD</span>
+        </div>
+        
+    </div>
+</body>
 
-<div class="container-fluid">
-    <app-result></app-result>
-</div>
 
-<div class="container-fluid">
-    <app-game></app-game>
-</div> -->
-<router-outlet></router-outlet>
+
+
+
+

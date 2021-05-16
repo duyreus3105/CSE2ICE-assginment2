@@ -1,9 +1,14 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">LOGO</a>
-      <a href="/team" class="nav-item">Team</a>
-      <a href="/result" class="nav-item">Ladder</a>
-      <a href="/game" class="nav-item">Result</a>
+      <a routerLink="/team" class="nav-item">Team</a>
+      <a routerLink="/result" class="nav-item">Ladder</a>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search favorite team" aria-label="Search" #favTeam>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="SearchTeam(favTeam.value)">Search</button>
+      </form>
     </div>
-
 </nav>
+
+<router-outlet></router-outlet>
+

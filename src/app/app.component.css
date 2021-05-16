@@ -1,0 +1,26 @@
+body,html{
+    height:100%;
+
+}
+.caption{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: 0%;
+    opacity : 100%;
+}
+.background{
+    background-image: url("https://populous.com/wp-content/uploads/2018/01/SBPhoto_PNG-National-Stadium_004RESIZED.jpg");
+    height :100%;
+    position: absolute;
+
+}
+span.border{
+    background-color: #111;
+    color: #fff;
+    padding: 18px;
+    font-size: 30px;
+    letter-spacing: 10px;
+}

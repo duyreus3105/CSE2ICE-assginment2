@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Team} from '../team';
 import { DataService } from '../teamData.service';
 import {Game} from '../game';
 import {Tip} from '../tip';
+
 
 @Component({
   selector: 'app-team',
@@ -15,7 +16,11 @@ export class TeamComponent implements OnInit {
   games!:Game[];
   tips!:Tip[];
   unPredicted!:boolean;
-  @Input() chosenTeam!:Team;
+  chosenTeam!:Team;
+  @Input() selectedTeam:string="";
+  winVenue = " ";
+  
+  @Output() clearTeam = new EventEmitter<string>();
 
   constructor(private dataService:DataService) {}
 
@@ -29,30 +34,49 @@ export class TeamComponent implements OnInit {
     this.dataService.getTip().subscribe(temp=>{this.tips = temp;})
   }
 
+
   ngOnInit(): void {
     this.getTeam();
-    this.unselected = true; 
     this.getGame();
     this.getTip();
-    this.unPredicted=true;
+    this.checkUnselected(); 
+    this.unPredicted = true;
+    this.unselected = true;
+  }
+
+  checkUnselected():boolean{
+    if(this.selectedTeam != ""){
+      this.getTeamName(this.selectedTeam);
+      this.getTeamResults();
+      this.getNextFourGame();
+      this.getWinVenue();
+    }
+    return this.unselected;
   }
   
-  getTeamID(id:number)
+  getTeamName(name:string)
   {
-    this.chosenTeam = (this.teams.filter(t => t.id == id))[0];
+    this.chosenTeam = (this.teams.filter(t => t.name == name))[0];
     this.unselected = false;
   }
-
-  return(){
-    this.unselected = true;
-    this.unPredicted = true;
-  }
-
-  allVenue!:Game[];
-  getVenues(id:number){
-    this.allVenue = this.games.filter(game => game.winnerteamid == id);
-  }
   
+  getWinVenue(){
+    let temp : String[] = [];
+    this.games.forEach(game => {
+      if(this.chosenTeam.name == game.winner){
+        if(!temp.includes(game.venue,0))  
+        {
+          temp.push(game.venue);
+        }
+        
+      }
+    });
+    temp.forEach(venue=>{
+      this.winVenue = this.winVenue + venue + ", ";
+    });
+    this.winVenue = this.winVenue.substring(0,this.winVenue.lastIndexOf(","));
+  }
+
   favoriteTeamResult!:Game[]
   getTeamResults(){
     let temp : Game[] = [];
@@ -84,8 +108,6 @@ export class TeamComponent implements OnInit {
     this.favoriteTeamNextGames = temp;
   }
 
-
-  
   gamePrediction!:Tip;
   getPrediction(id:number){
     this.gamePrediction = this.tips.filter(t => t.gameid == id)[0];

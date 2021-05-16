@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Team} from "./team";
 import {Game} from "./game";
@@ -11,7 +11,12 @@ import { data } from "jquery";
 })
 export class DataService{
     constructor(private http: HttpClient){}
-
+    private teamSource = new BehaviorSubject<string>("");
+    currentTeam = this.teamSource.asObservable();
+    
+    getFavoriteTeam(team:string){
+        this.teamSource.next(team);
+    }
 
     getTeams(): Observable<Team[]>{
         return this.http.get('https://api.squiggle.com.au/?q=teams')
